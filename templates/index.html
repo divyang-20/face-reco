@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Criminal Point - Detect Faces</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-image: url(static/pics/bg.jpg);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        {% if not filename %}
+        <div class="container max-width-sm">
+            <h3>UPLOAD IMAGE TO MATCH :</h3>
+            <form method="post" action="/" enctype="multipart/form-data" class="form-inline">
+                <div class="form-group">
+                    <input style="margin: 5px 0;" type="file" name="file" class="form-control" autocomplete="off"
+                        required>
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="UPLOAD" />
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <h3 id="infomsg">{{ message }}</h3>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+        {% endif %}
+        {% if filename %}
+        <div class="matchimg max-width-lg">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <h3 id="matchmsg">{{ message }}</h3>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="pics">
+                <img id="img1" src="{{ url_for('display_image', filename=filename) }}">
+                <img id="img2" class="active" src="../static/pics/face-recognition.gif">
+            </div>
+            <div class="match-btn buttons">
+                <button type="button" class="btn btn-info btn-lg" id="menu-btn">MATCH IMAGE</button>
+            </div>
+            <div class="upload-btn active buttons">
+                <button type="button" class="btn btn-info btn-lg" onclick="location.href='/form'">UPLOAD
+                    DETAILS</button>
+            </div>
+            <div class="view-btn active buttons">
+                <button type="button" id="detail-btn" class="btn btn-info btn-lg">VIEW DETAILS</button>
+            </div>
+            <div class="home-btn buttons active">
+                <button type="button" class="btn btn-info btn-lg" id="menu-btn" onclick="location.href='/'">RETURN
+                    HOME</button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        var file = ""
+        setTimeout(function () {
+            document.getElementById("infomsg").innerHTML = "";
+        }, 3000);
+        $('#menu-btn').click(function () {
+            $('#img2').removeClass("active");
+            $('.match-btn').addClass("active");
+            document.getElementById("matchmsg").innerHTML = "Matching...";
+            $.getJSON("{{ url_for('match_image', filename=filename) }}", function (data) {
+                var msg = data.msg;
+                var name = data.name;
+                var dob = data.dob;
+                var k = data.k;
+                file = data.file;
+                document.getElementById("matchmsg").innerHTML = msg;
+                $('.infos-btn').removeClass("active");
+                if (k == 1) {
+                    document.getElementById("img2").src = `static/dbimages/${file}`;
+                    $('.view-btn').removeClass("active");
+                }
+                else if (k == 2) {
+                    $('#img2').addClass("active");
+                    $('.home-btn').removeClass("active");
+                }
+                else {
+                    $('#img2').addClass("active");
+                    $('.upload-btn').removeClass("active");
+                }
+            });
+        });
+        $('#detail-btn').click(function () {
+            window.location.href = `/search?file=${file}`;
+        });
+    });
+</script>
+
+</html>

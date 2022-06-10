@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: no-repeat fixed center;
+  background-size: cover;
+}
+.max-width-sm {
+  max-width: 800px;
+  padding: 40px 60px;
+  margin: auto;
+}
+.max-width-lg {
+  max-width: 1400px;
+  padding: 30px 50px;
+  margin: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  text-align: center;
+  margin: 15px;
+  font-family: "Abril Fatface";
+  letter-spacing: 2px;
+}
+h4,
+h3 {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+span {
+  color: black;
+  text-shadow: none;
+}
+.info {
+  display: flex;
+}
+.left {
+  width: 40%;
+}
+.right {
+  width: 60%;
+}
+.pics {
+  display: flex;
+  justify-content: space-around;
+}
+.pics img {
+  height: 350px;
+  width: 350px;
+  border: 4px solid crimson;
+  border-radius: 15px;
+}
+.active {
+  display: none;
+}
+.buttons .btn {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+form {
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+.form-group {
+  margin: 16px 0;
+}
+label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 18px;
+}
+@media (max-width: 1000px) {
+  .btn-lg {
+    font-size: 1em;
+  }
+  .pics1 img {
+    height: 200px;
+    width: 200px;
+  }
+  h4,
+  h5 {
+    margin: 8px;
+    letter-spacing: 1.6px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 800px) {
+  .max-width-lg {
+    padding: 20px 20px;
+  }
+  .pics img {
+    height: 280px;
+    width: 280px;
+  }
+  .pics1 img {
+    height: 200px;
+    width: 200px;
+  }
+  h4,
+  h5 {
+    margin: 8px;
+    letter-spacing: 1.2px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .pics {
+    flex-direction: column;
+  }
+  .pics img {
+    margin: auto;
+    margin-top: 20px;
+  }
+  .pics1 img {
+    height: 150px;
+    width: 150px;
+  }
+  form {
+    padding: 15px;
+  }
+  .max-width-lg {
+    padding: 10px 10px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  h4,
+  h5 {
+    margin: 6px;
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 450px) {
+  .max-width-sm {
+    padding: 20px 20px;
+  }
+  .pics img {
+    height: 250px;
+    width: 250px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  h4,
+  h5 {
+    font-size: 20px;
+  }
+  .info {
+    display: block;
+  }
+  .left {
+    width: 100%;
+  }
+  .right {
+    width: 100%;
+  }
+}
